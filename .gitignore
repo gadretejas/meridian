@@ -1,0 +1,116 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env.local
+.env.*.local
+
+# Environment files (NEVER commit secrets)
+.env
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+*.cover
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Databases (local instances, don't track)
+*.db
+*.sqlite
+*.sqlite3
+~/.pm-agent/
+
+# Config files with secrets or local overrides
+config.yaml
+ritual_config.yaml
+# BUT DO track these templates:
+!config.yaml.example
+!ritual_config.yaml.example
+
+# Logs
+*.log
+logs/
+
+# LLM outputs / temp files
+*.txt.bak
+tmp/
+temp/
+*.tmp
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Project-specific
+# Local research / scratch files
+scratch/
+notes/
+*.md.tmp
+
+# Scheduler / queue state (local runtime, don't track)
+queue.db
+scheduler.state
+
+# API keys / credentials (security)
+**/secrets/
+**/credentials/
+.aws/
+.gcloud/
+
+# APScheduler
+scheduler.sqlite
+
+# Keep uv.lock for reproducibility!
+# uv.lock should be committed
+
+# Node modules (if any web components)
+node_modules/
