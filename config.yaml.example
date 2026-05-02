@@ -1,0 +1,113 @@
+# PM Agent Configuration
+# Copy this file to config.yaml and fill in your values
+# config.yaml is in .gitignore - never commit it
+
+project:
+  name: "My Project"
+  sdlc_mode: "sdd"  # sdd | agile | waterfall | hve
+
+# Primary ticket source
+ticket_sources:
+  primary: "github"  # github | jira
+  
+  github:
+    repo: "owner/repo"
+    token_env: "GITHUB_TOKEN"
+  
+  jira:
+    url: "https://your-company.atlassian.net"
+    email_env: "JIRA_EMAIL"
+    token_env: "JIRA_TOKEN"
+
+# LLM model configuration (three tiers)
+llm:
+  # Fast tier: routing, quick analysis, summaries
+  fast:
+    provider: "gemini"  # gemini | claude | azure_openai | ollama
+    model: "models/gemini-2.0-flash"
+    temperature: 0.3
+    max_tokens: 4096
+    # For Azure OpenAI:
+    # base_url: "https://your-resource.openai.azure.com/"
+    # For Ollama:
+    # base_url: "http://localhost:11434"
+    # ollama_context_limit: 8192
+  
+  # Mid tier: structured outputs, task generation
+  mid:
+    provider: "gemini"
+    model: "models/gemini-2.5-pro"
+    temperature: 0.3
+    max_tokens: 8192
+  
+  # Strong tier: spec authoring, complex analysis
+  strong:
+    provider: "anthropic"
+    model: "claude-opus-4-20250514"
+    temperature: 0.3
+    max_tokens: 12000
+
+# Context management (Phase 3)
+context_management:
+  threshold: 0.85  # Compress when 85% of context used
+  tail_window: 4   # Keep last 4 messages after compression
+  
+  state_compressor:
+    max_tickets_in_state: 50
+    max_trace_entries: 100
+    trace_keep_last: 20
+  
+  memory_store:
+    backend: "sqlite"
+    sqlite_path: "~/.pm-agent/memory.db"
+
+# Human-in-the-loop queue (Phase 5)
+hitl_queue:
+  backend: "sqlite"  # in_process | sqlite | redis
+  sqlite_path: "~/.pm-agent/queue.db"
+  item_ttl_hours: 48
+
+# Scheduler (Phase 9)
+scheduler:
+  timezone: "UTC"
+  enable_persistence: true
+
+# Approval gates (Phase 7)
+approval:
+  approval_timeout_hours: 24
+  require_approval_for:
+    - "spec_creation"
+    - "task_delegation"
+    - "task_decomposition"
+
+# Notifications
+notifications:
+  enabled: true
+  channels:
+    - "stdout"
+    # - "email"
+    # - "slack"
+
+# Skills system (Phase 4)
+skills:
+  enabled: true
+  auto_discover: true
+  folder: "skills"
+
+# Team members (for delegate_to, assignments)
+team:
+  - name: "Alice"
+    handles:
+      github: "alice"
+      jira: "alice@company.com"
+    skills:
+      - "backend"
+      - "database"
+  
+  - name: "Bob"
+    handles:
+      github: "bob"
+      jira: "bob@company.com"
+    skills:
+      - "frontend"
+      - "ui/ux"
