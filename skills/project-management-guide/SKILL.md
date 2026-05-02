@@ -1,3 +1,8 @@
+---
+name: project-management-guide
+description: Comprehensive guide for project management best practices, methodologies, and templates.
+---
+
 # Project Management Skill
 
 > Reusable workflow extracted from davide-project-manager expertise.
